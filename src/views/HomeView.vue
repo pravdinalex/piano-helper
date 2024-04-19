@@ -1,9 +1,13 @@
-<script setup lang="ts">
-import TheWelcome from '../components/TheWelcome.vue'
-</script>
-
 <template>
   <main>
-    <TheWelcome />
+    main view
   </main>
 </template>
+
+<script setup lang="ts">
+
+const a: ENote = EOctave['3']
+
+
+</script>
+
