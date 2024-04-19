@@ -1,9 +1,26 @@
 // TODO
 
 #app {
-  color: #66bf3c;
+  color: #5ca2c4;
 
   a {
     color: darkorange;
   }
+}
+
+:root {
+  --ph-white: #efefef;
+  --ph-white-shadow: #aaaaaa44;
+  --ph-black: #333;
+  --ph-black-shadow: #66666688;
+  --ph-key-border: #777;
+
+  --ph-active-border: darkorange;
+
+  // TODO: dynamic
+  --ph-keyboard-height: 200px;
+  --ph-key-width: 46px;
+  --ph-black-key-width: 36px;
+  --ph-black-key-height: 120px;
+  --ph-key-slot-height: 80px;
 }

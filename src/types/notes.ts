@@ -1,4 +1,4 @@
-enum EOctave {
+export enum EOctave {
   subContr = -3,
   contr = -2,
   big = -1,
@@ -10,7 +10,7 @@ enum EOctave {
   fifth = 5,
 }
 
-enum ENote {
+export enum ENote {
   C = 0,
   Cs = 0.5,
   D = 1,
@@ -23,4 +23,9 @@ enum ENote {
   A = 4.5,
   As = 5,
   B = 5.5,
+}
+
+export interface INoteId {
+  octave: EOctave,
+  note: ENote,
 }
