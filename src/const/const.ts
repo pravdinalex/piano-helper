@@ -1,4 +1,16 @@
-import { ENote } from '@/types/notes'
+import { ENote, EOctave } from '@/types/notes'
+
+export const OCTAVES: EOctave[] = [
+  EOctave.subContr,
+  EOctave.contr,
+  EOctave.big,
+  EOctave.small,
+  EOctave.first,
+  EOctave.second,
+  EOctave.third,
+  EOctave.forth,
+  EOctave.fifth,
+]
 
 export const KEYS: ENote[] = [
   ENote.C,

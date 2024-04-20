@@ -1,21 +1,17 @@
-// TODO
-
-#app {
-  color: #5ca2c4;
-
-  a {
-    color: darkorange;
-  }
-}
+@import "fonts";
 
 :root {
-  --ph-white: #efefef;
-  --ph-white-shadow: #aaaaaa44;
-  --ph-black: #333;
+  --ph-white: #fff9ec;
+  --ph-white-shadow: #aaaaaa66;
+  --ph-black: #231e12;
   --ph-black-shadow: #66666688;
   --ph-key-border: #777;
+  --ph-key-disabled: #aaa;
 
-  --ph-active-border: darkorange;
+  --ph-active-primary: darkorange;
+  --ph-active-secondary: #ff5500;
+  --ph-link: #5ca2c4;
+  --ph-text: #666;
 
   // TODO: dynamic
   --ph-keyboard-height: 200px;
@@ -23,4 +19,28 @@
   --ph-black-key-width: 36px;
   --ph-black-key-height: 120px;
   --ph-key-slot-height: 80px;
+  --ph-key-mark-size: 16px;
+
+  --ph-padding-xs: 4px;
+  --ph-padding-s: 8px;
+  --ph-padding-m: 16px;
+
+  --ph-font-s: 12px;
+  --ph-font-m: 16px;
+  --ph-font-l: 24px;
+}
+
+#app {
+  @include use-rubik-font(400);
+  font-size: var(--ph-font-m);
+  color: var(--ph-text);
+
+  a {
+    color: var(--ph-link);
+  }
+
+  h3 {
+    font-size: var(--ph-font-l);
+    font-weight: 400;
+  }
 }

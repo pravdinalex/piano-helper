@@ -1,0 +1,13 @@
+@font-face {
+  font-family: 'Rubik';
+  src:
+          url('/fonts/rubik-vf-wght.ttf') format('truetype');
+          //url('../../public/fonts/rubik-vf-wght.ttf') format('truetype');
+}
+
+@mixin use-rubik-font($weight: 400) {
+  font-family: 'Rubik', sans-serif;
+  font-optical-sizing: auto;
+  font-weight: $weight;
+  font-style: normal;
+}

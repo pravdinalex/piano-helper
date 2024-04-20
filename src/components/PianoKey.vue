@@ -1,12 +1,21 @@
 <template>
   <div
       class="piano-key"
-      :class="elementClass"
+      :class="elementClasses"
   >
-    <div class="piano-key-bar">
+    <div
+      class="piano-key-bar"
+      @click="onClickKey"
+    >
       <div class="slot-container">
-        <slot>{{ KEY_TITLES[note.note] }}</slot>
+        <slot></slot>
       </div>
+    </div>
+    <div
+      v-if="!isBlackKey(props.note.note)"
+      class="piano-key-note"
+    >
+      {{ KEY_TITLES[note.note] }}
     </div>
   </div>
 </template>
@@ -17,33 +26,50 @@ import { computed } from 'vue'
 import { isBlackKey } from '@/helpers/helpers'
 import { KEY_TITLES } from '@/const/const'
 
-const props = defineProps<{
-  note: INoteId
+const props = withDefaults(defineProps<{
+  note: INoteId,
+  isInteractive?: boolean,
+  isDisabled?: boolean,
+}>(), {
+  isInteractive: true,
+  isDisabled: false,
+})
+
+const emit = defineEmits<{
+  (e: 'click-note', note: INoteId): void,
 }>()
 
-const elementClass = computed<Record<string, boolean>>(() => ({
-  'is-black': isBlackKey(props.note.note)
+const elementClasses = computed<Record<string, boolean>>(() => ({
+  'is-black': isBlackKey(props.note.note),
+  'is-interactive': props.isInteractive && !props.isDisabled,
+  'is-disabled': props.isDisabled,
 }))
+
+function onClickKey() {
+  if (props.isInteractive && !props.isDisabled) {
+    emit('click-note', props.note)
+  }
+}
 
 </script>
 
 <style scoped lang="scss">
+@import "@/assets/mixins.scss";
+
 .piano-key {
   position: relative;
+  // pointer-events: none;
 
   .piano-key-bar {
+    // pointer-events: all;
     position: relative;
     background: var(--ph-white);
-    box-shadow: inset -1px -1px 0 2px var(--ph-white-shadow);
+    @include light-shadow(var(--ph-white-shadow));
     width: var(--ph-key-width);
     height: var(--ph-keyboard-height);
     border: 1px solid var(--ph-key-border);
     border-top: none;
     border-radius: 0 0 6px 6px;
-
-    &:hover {
-      border-color: var(--ph-active-border);
-    }
   }
 
   &.is-black {
@@ -53,10 +79,28 @@ const elementClass = computed<Record<string, boolean>>(() => ({
     .piano-key-bar {
       width: var(--ph-black-key-width);
       background: var(--ph-black);
-      box-shadow: inset -1px -1px 0 2px var(--ph-black-shadow);
+      @include light-shadow(var(--ph-black-shadow));
       transform: translateX(-50%);
       z-index: 1;
       height: var(--ph-black-key-height);
+    }
+  }
+
+  &:not(.is-black) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  &.is-interactive {
+    .piano-key-bar {
+      cursor: pointer;
+
+      &:hover {
+        $active: var(--ph-active-primary);
+        border-color: $active;
+        @include light-shadow($active);
+      }
     }
   }
 
@@ -70,6 +114,17 @@ const elementClass = computed<Record<string, boolean>>(() => ({
     flex-direction: column;
     justify-content: flex-end;
     align-items: center;
+  }
+
+  .piano-key-note {
+    height: 30px;
+    align-content: center;
+  }
+
+  &.is-disabled {
+    .piano-key-bar {
+      background: var(--ph-key-disabled);
+    }
   }
 }
 
