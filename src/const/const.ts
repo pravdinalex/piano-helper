@@ -1,4 +1,5 @@
 import { ENote, EOctave } from '@/types/notes'
+import { ETonalityMainSteps } from '@/types/tonality'
 
 export const OCTAVES: EOctave[] = [
   EOctave.subContr,
@@ -49,3 +50,9 @@ export const BLACK_KEYS = [
   ENote.Gs,
   ENote.As,
 ]
+
+export const TONALITY_MAIN_STEPS: Record<ETonalityMainSteps, string> = {
+  [ETonalityMainSteps.tonika]: 'T',
+  [ETonalityMainSteps.subdominanta]: 'S',
+  [ETonalityMainSteps.dominanta]: 'D',
+}

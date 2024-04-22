@@ -6,6 +6,7 @@
         :note="note"
         :is-disabled="octaveDisabledNotes.includes(note.note)"
     >
+      <PianoKeyToneMark v-if="[0, 2.5, 3.5].includes(note.note)">S</PianoKeyToneMark>
       <PianoKeyMark v-if="octaveMarkedNotes.includes(note.note)" />
     </PianoKey>
   </div>
@@ -17,6 +18,7 @@ import type { EOctave, ENote, INoteId } from '@/types/notes'
 import { KEYS } from '@/const/const'
 import PianoKey from '@/components/PianoKey.vue'
 import PianoKeyMark from '@/components/PianoKeyMark.vue'
+import PianoKeyToneMark from '@/components/PianoKeyToneMark.vue'
 
 
 const props = withDefaults(defineProps<{

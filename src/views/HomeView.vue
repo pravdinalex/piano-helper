@@ -1,23 +1,20 @@
 <template>
   <main>
     <PianoKeyboard>
-      <PianoOctave
-        :octave="EOctave.small"
-        :marked-notes="markedNotes"
-        :disabled-notes="disabledNotes"
-      />
-      <div class="octave-divider"></div>
-      <PianoOctave
-        :octave="EOctave.first"
-        :marked-notes="markedNotes"
-        :disabled-notes="disabledNotes"
-      />
-      <div class="octave-divider"></div>
-      <PianoOctave
-        :octave="EOctave.second"
-        :marked-notes="markedNotes"
-        :disabled-notes="disabledNotes"
-      />
+      <template
+        v-for="octave in shownOctaves"
+        :key="octave"
+      >
+        <PianoOctave
+          :octave="octave"
+          :marked-notes="markedNotes"
+          :disabled-notes="disabledNotes"
+        />
+        <div
+          v-if="octave !== shownOctaves[shownOctaves.length - 1]"
+          class="octave-divider"
+        ></div>
+      </template>
     </PianoKeyboard>
   </main>
 </template>
@@ -28,6 +25,8 @@ import PianoOctave from '@/components/PianoOctave.vue'
 import type { INoteId } from '@/types/notes'
 import { ENote, EOctave } from '@/types/notes'
 import { OCTAVES } from '@/const/const'
+
+const shownOctaves = [EOctave.small, EOctave.first, EOctave.second]
 
 const markedNotes: INoteId[] = [
   { octave: EOctave.first, note: ENote.D },
@@ -49,9 +48,8 @@ console.log(disabledNotes)
 
 <style scoped lang="scss">
 .octave-divider {
-  width: 4px;
-  background: var(--ph-black-shadow);
+  width: var(--ph-padding-xs);
+  background: var(--ph-key-disabled);
 }
-
 </style>
 

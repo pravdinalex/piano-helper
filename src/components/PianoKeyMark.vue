@@ -1,7 +1,7 @@
 <template>
-  <span class="piano-key-mark">
-
-  </span>
+  <div class="piano-key-mark">
+    <slot></slot>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -18,7 +18,7 @@
   border-radius: 50%;
   border: 1px solid var(--ph-active-secondary);
   background: var(--ph-active-primary);
-  // @include light-shadow(var(--ph-active-secondary));
-  margin: var(--ph-padding-s) 0;
+  font-size: var(--ph-font-m);
+  color: var(--ph-text-on-color);
 }
 </style>

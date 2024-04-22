@@ -8,10 +8,25 @@
   --ph-key-border: #777;
   --ph-key-disabled: #aaa;
 
-  --ph-active-primary: darkorange;
-  --ph-active-secondary: #ff5500;
-  --ph-link: #5ca2c4;
+  --ph-active-primary: #ff8c00;
+  --ph-active-disabled: #bf7f30;
+  --ph-active-secondary: #a95000;
+
+  --ph-active-warning-primary: #ffbe00;
+  --ph-active-warning-disabled: #bf9b30;
+  --ph-active-warning-secondary: #b58703;
+
+  --ph-error-primary: #ff3500;
+  --ph-error-disabled: #bf4e30;
+  --ph-error-secondary: #a22100;
+
+  --ph-info-primary: #42aded;
+  --ph-info-disabled: #5c92b2;
+  --ph-info-secondary: #2f82b4;
+
+  --ph-link: var(--ph-info-primary);
   --ph-text: #666;
+  --ph-text-on-color: #eee;
 
   // TODO: dynamic
   --ph-keyboard-height: 200px;
@@ -19,11 +34,13 @@
   --ph-black-key-width: 36px;
   --ph-black-key-height: 120px;
   --ph-key-slot-height: 80px;
-  --ph-key-mark-size: 16px;
+  --ph-key-mark-size: 18px;
 
+  --ph-padding-xxs: 2px;
   --ph-padding-xs: 4px;
   --ph-padding-s: 8px;
   --ph-padding-m: 16px;
+  --ph-padding-l: 32px;
 
   --ph-font-s: 12px;
   --ph-font-m: 16px;
@@ -34,13 +51,4 @@
   @include use-rubik-font(400);
   font-size: var(--ph-font-m);
   color: var(--ph-text);
-
-  a {
-    color: var(--ph-link);
-  }
-
-  h3 {
-    font-size: var(--ph-font-l);
-    font-weight: 400;
-  }
 }

@@ -76,12 +76,15 @@ function onClickKey() {
     width: 0;
     overflow: visible;
 
+    > * {
+      transform: translateX(-50%);
+      z-index: 1;
+    }
+
     .piano-key-bar {
       width: var(--ph-black-key-width);
       background: var(--ph-black);
       @include light-shadow(var(--ph-black-shadow));
-      transform: translateX(-50%);
-      z-index: 1;
       height: var(--ph-black-key-height);
     }
   }
@@ -114,6 +117,8 @@ function onClickKey() {
     flex-direction: column;
     justify-content: flex-end;
     align-items: center;
+    gap: var(--ph-padding-s);
+    padding: var(--ph-padding-s) 0;
   }
 
   .piano-key-note {
