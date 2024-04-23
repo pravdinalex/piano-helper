@@ -12,10 +12,10 @@
       </div>
     </div>
     <div
-      v-if="!isBlackKey(props.note.note)"
+      v-if="!isBlackKey(props.note.tone)"
       class="piano-key-note"
     >
-      {{ KEY_TITLES[note.note] }}
+      {{ KEY_TITLES[note.tone] }}
     </div>
   </div>
 </template>
@@ -24,7 +24,7 @@
 import type { INoteId } from '@/types/notes'
 import { computed } from 'vue'
 import { isBlackKey } from '@/helpers/helpers'
-import { KEY_TITLES } from '@/const/const'
+import { KEY_TITLES } from '@/const/keys'
 
 const props = withDefaults(defineProps<{
   note: INoteId,
@@ -40,7 +40,7 @@ const emit = defineEmits<{
 }>()
 
 const elementClasses = computed<Record<string, boolean>>(() => ({
-  'is-black': isBlackKey(props.note.note),
+  'is-black': isBlackKey(props.note.tone),
   'is-interactive': props.isInteractive && !props.isDisabled,
   'is-disabled': props.isDisabled,
 }))

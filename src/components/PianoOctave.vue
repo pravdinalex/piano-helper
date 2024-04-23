@@ -2,23 +2,21 @@
   <div class="piano-octave">
     <PianoKey
         v-for="note in octaveNotes"
-        :key="note.note"
+        :key="note.tone"
         :note="note"
-        :is-disabled="octaveDisabledNotes.includes(note.note)"
+        :is-disabled="octaveDisabledNotes.includes(note.tone)"
     >
-      <PianoKeyToneMark v-if="[0, 2.5, 3.5].includes(note.note)">S</PianoKeyToneMark>
-      <PianoKeyMark v-if="octaveMarkedNotes.includes(note.note)" />
+      <PianoKeyMark v-if="octaveMarkedNotes.includes(note.tone)" />
     </PianoKey>
   </div>
 </template>
 
 <script setup lang="ts">
 import { computed } from 'vue'
-import type { EOctave, ENote, INoteId } from '@/types/notes'
-import { KEYS } from '@/const/const'
+import type { EOctave, EOctaveTone, INoteId } from '@/types/notes'
+import { OCTAVE_TONES } from '@/const/notes'
 import PianoKey from '@/components/PianoKey.vue'
 import PianoKeyMark from '@/components/PianoKeyMark.vue'
-import PianoKeyToneMark from '@/components/PianoKeyToneMark.vue'
 
 
 const props = withDefaults(defineProps<{
@@ -31,19 +29,19 @@ const props = withDefaults(defineProps<{
 })
 
 const octaveNotes = computed<INoteId[]>(() =>
-  KEYS.map((note) => ({note, octave: props.octave}))
+  OCTAVE_TONES.map((note) => ({tone: note, octave: props.octave}))
 )
 
-const octaveMarkedNotes = computed<ENote[]>(() =>
+const octaveMarkedNotes = computed<EOctaveTone[]>(() =>
     props.markedNotes
         .filter((note) => note.octave === props.octave)
-        .map((note) => note.note)
+        .map((note) => note.tone)
 )
 
-const octaveDisabledNotes = computed<ENote[]>(() =>
+const octaveDisabledNotes = computed<EOctaveTone[]>(() =>
   props.disabledNotes
     .filter((note) => note.octave === props.octave)
-    .map((note) => note.note)
+    .map((note) => note.tone)
 )
 
 </script>

@@ -10,7 +10,7 @@ export enum EOctave {
   fifth = 5,
 }
 
-export enum ENote {
+export enum EOctaveTone {
   C = 0,
   Cs = 0.5,
   D = 1,
@@ -25,7 +25,23 @@ export enum ENote {
   B = 5.5,
 }
 
+export enum EBasicNote {
+  C = 0,
+  D = 1,
+  E = 2,
+  F = 2.5,
+  G = 3.5,
+  A = 4.5,
+  B = 5.5,
+}
+
+export enum ENoteSign {
+  flat = -0.5,
+  none = 0,
+  sharp = 0.5,
+}
+
 export interface INoteId {
   octave: EOctave,
-  note: ENote,
+  tone: EOctaveTone,
 }

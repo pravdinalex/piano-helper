@@ -16,33 +16,66 @@
         ></div>
       </template>
     </PianoKeyboard>
+
+    <section>
+      <label>
+        <input type="checkbox" v-model="isMinorTonality" />
+        {{ TONALITY_SUFFIX[ETonalitySign.minor] }}
+      </label>
+      <button
+        v-for="key in OCTAVE_TONES"
+        :key="key"
+        @click="setTonality(key)"
+      >{{ tonalityTitle({ tone:  key, sign: selectedTonalitySign }) }}</button>
+      <button @click="keyboardDisplayStore.resetTonality()">reset</button>
+
+
+    </section>
   </main>
 </template>
 
 <script setup lang="ts">
+import { ref, computed } from 'vue'
 import PianoKeyboard from '@/components/PianoKeyboard.vue'
 import PianoOctave from '@/components/PianoOctave.vue'
 import type { INoteId } from '@/types/notes'
-import { ENote, EOctave } from '@/types/notes'
-import { OCTAVES } from '@/const/const'
+import { EOctaveTone, EOctave } from '@/types/notes'
+import { OCTAVES, OCTAVE_TONES } from '@/const/notes'
+import { TONALITY_SUFFIX } from '@/const/notes'
+import { useKeyboardDisplayStore } from '@/stores/keyboardDisplay'
+import { storeToRefs } from 'pinia'
+import { tonalityTitle } from '@/helpers/helpers'
+import { ETonalitySign } from '@/types/tonality'
+
+
+const keyboardDisplayStore = useKeyboardDisplayStore()
+const { currentTonality } = storeToRefs(keyboardDisplayStore)
 
 const shownOctaves = [EOctave.small, EOctave.first, EOctave.second]
 
+const isMinorTonality = ref(false)
+
+
+
 const markedNotes: INoteId[] = [
-  { octave: EOctave.first, note: ENote.D },
-  { octave: EOctave.first, note: ENote.Ds },
-  { octave: EOctave.first, note: ENote.Fs },
-  { octave: EOctave.first, note: ENote.A },
+  { octave: EOctave.first, tone: EOctaveTone.D },
+  { octave: EOctave.first, tone: EOctaveTone.Fs },
+  { octave: EOctave.first, tone: EOctaveTone.A },
 ]
 
 const disabledNotes: INoteId[] = OCTAVES.reduce((acc, octave) => {
   return acc.concat(
-    [ENote.Cs, ENote.G, ENote.B].map((note) => ({ octave, note }))
+    [EOctaveTone.Cs, EOctaveTone.G, EOctaveTone.B].map((note) => ({ octave, note }))
   )
 }, [])
 
-console.log('===')
-console.log(disabledNotes)
+const selectedTonalitySign = computed<ETonalitySign>(() =>
+  isMinorTonality.value ? ETonalitySign.minor : ETonalitySign.major
+)
+
+function setTonality(tone: EOctaveTone) {
+  keyboardDisplayStore.setTonality(tone, selectedTonalitySign.value)
+}
 
 </script>
 

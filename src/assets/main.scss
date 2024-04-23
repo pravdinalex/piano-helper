@@ -51,4 +51,12 @@
   @include use-rubik-font(400);
   font-size: var(--ph-font-m);
   color: var(--ph-text);
+
+  a, a:active, a:hover, a:visited {
+    color: var(--ph-info-primary);
+  }
+
+  button, input {
+    accent-color: var(--ph-info-primary);
+  }
 }
