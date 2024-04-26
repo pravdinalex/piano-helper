@@ -8,7 +8,7 @@
         <PianoOctave
           :octave="octave"
           :marked-notes="markedNotes"
-          :disabled-notes="disabledNotes"
+          :disabled-notes="disabledTonalityNotes"
         />
         <div
           v-if="octave !== shownOctaves[shownOctaves.length - 1]"
@@ -18,17 +18,17 @@
     </PianoKeyboard>
 
     <section>
-      <label>
-        <input type="checkbox" v-model="isMinorTonality" />
-        {{ TONALITY_SUFFIX[ETonalitySign.minor] }}
-      </label>
-      <button
-        v-for="key in OCTAVE_TONES"
-        :key="key"
-        @click="setTonality(key)"
-      >{{ tonalityTitle({ tone:  key, sign: selectedTonalitySign }) }}</button>
-      <button @click="keyboardDisplayStore.resetTonality()">reset</button>
+      <pre>{{ currentTonality }}</pre>
 
+      <button @click="setTonality(prevOctaveTone(currentTonality.tone))"> &lt;- less </button>
+      <button @click="setTonality(nextOctaveTone(currentTonality.tone))"> more -&gt; </button>
+
+      <br>
+
+      <button @click="keyboardDisplayStore.setScale(MAJOR_SCALE)">major</button>
+      <button @click="keyboardDisplayStore.setScale(MINOR_SCALE)">minor</button>
+      <button @click="keyboardDisplayStore.setScale(MAJOR_BLUES_SCALE)">major blues</button>
+      <button @click="keyboardDisplayStore.setScale(MINOR_BLUES_SCALE)">minor blues</button>
 
     </section>
   </main>
@@ -39,35 +39,28 @@ import { ref, computed } from 'vue'
 import PianoKeyboard from '@/components/PianoKeyboard.vue'
 import PianoOctave from '@/components/PianoOctave.vue'
 import type { INoteId } from '@/types/notes'
-import { EOctaveTone, EOctave } from '@/types/notes'
-import { OCTAVES, OCTAVE_TONES } from '@/const/notes'
-import { TONALITY_SUFFIX } from '@/const/notes'
+import { EOctaveTone } from '@/types/notes'
+import { MAJOR_SCALE, MINOR_SCALE, MAJOR_BLUES_SCALE, MINOR_BLUES_SCALE } from '@/const/intervals'
 import { useKeyboardDisplayStore } from '@/stores/keyboardDisplay'
 import { storeToRefs } from 'pinia'
-import { tonalityTitle } from '@/helpers/helpers'
+import {
+  prevOctaveTone,
+  nextOctaveTone,
+} from '@/helpers/helpers'
 import { ETonalitySign } from '@/types/tonality'
 
 
 const keyboardDisplayStore = useKeyboardDisplayStore()
-const { currentTonality } = storeToRefs(keyboardDisplayStore)
+const {
+  shownOctaves,
+  currentTonality,
+  disabledTonalityNotes,
+} = storeToRefs(keyboardDisplayStore)
 
-const shownOctaves = [EOctave.small, EOctave.first, EOctave.second]
 
 const isMinorTonality = ref(false)
 
-
-
-const markedNotes: INoteId[] = [
-  { octave: EOctave.first, tone: EOctaveTone.D },
-  { octave: EOctave.first, tone: EOctaveTone.Fs },
-  { octave: EOctave.first, tone: EOctaveTone.A },
-]
-
-const disabledNotes: INoteId[] = OCTAVES.reduce((acc, octave) => {
-  return acc.concat(
-    [EOctaveTone.Cs, EOctaveTone.G, EOctaveTone.B].map((note) => ({ octave, note }))
-  )
-}, [])
+const markedNotes: INoteId[] = []
 
 const selectedTonalitySign = computed<ETonalitySign>(() =>
   isMinorTonality.value ? ETonalitySign.minor : ETonalitySign.major

@@ -1,5 +1,5 @@
 import { EOctaveTone, EOctave, EBasicNote, ENoteSign } from '@/types/notes'
-import { ETonalityMainSteps, ETonalitySign } from '@/types/tonality'
+import { ETonalitySign } from '@/types/tonality'
 
 export const OCTAVES: EOctave[] = [
   EOctave.subContr,
@@ -46,12 +46,6 @@ export const NOTE_TITLES: Record<EBasicNote, string> = {
   [EBasicNote.G]: 'G',
   [EBasicNote.A]: 'A',
   [EBasicNote.B]: 'B',
-}
-
-export const TONALITY_MAIN_STEPS: Record<ETonalityMainSteps, string> = {
-  [ETonalityMainSteps.tonika]: 'T',
-  [ETonalityMainSteps.subdominanta]: 'S',
-  [ETonalityMainSteps.dominanta]: 'D',
 }
 
 export const NOTE_SIGN_TITLES: Record<ENoteSign, string> = {

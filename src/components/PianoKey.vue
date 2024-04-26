@@ -129,6 +129,7 @@ function onClickKey() {
   &.is-disabled {
     .piano-key-bar {
       background: var(--ph-key-disabled);
+      opacity: 0.65;
     }
   }
 }

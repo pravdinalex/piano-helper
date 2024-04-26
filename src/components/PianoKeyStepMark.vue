@@ -1,5 +1,5 @@
 <template>
-  <div class="piano-key-tone-mark">
+  <div class="piano-key-step-mark">
     <div class="text-container">
       <slot></slot>
     </div>
@@ -13,7 +13,7 @@
 <style scoped lang="scss">
 @import "@/assets/mixins.scss";
 
-.piano-key-tone-mark {
+.piano-key-step-mark {
   display: inline-flex;
   align-items: end;
   justify-content: center;

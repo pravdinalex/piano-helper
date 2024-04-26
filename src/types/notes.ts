@@ -26,13 +26,13 @@ export enum EOctaveTone {
 }
 
 export enum EBasicNote {
-  C = 0,
-  D = 1,
-  E = 2,
-  F = 2.5,
-  G = 3.5,
-  A = 4.5,
-  B = 5.5,
+  C = [EOctaveTone.C],
+  D = [EOctaveTone.D],
+  E = [EOctaveTone.E],
+  F = [EOctaveTone.F],
+  G = [EOctaveTone.G],
+  A = [EOctaveTone.A],
+  B = [EOctaveTone.B],
 }
 
 export enum ENoteSign {
